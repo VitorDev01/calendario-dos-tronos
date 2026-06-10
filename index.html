@@ -470,6 +470,35 @@ button:active{
 
 }
 
+ /* ADICIONE NO CSS */
+
+.dia-regencia{
+    position:relative;
+    border:2px solid #d4af37 !important;
+    font-weight:bold;
+}
+
+.dia-regencia::after{
+    content:"👑";
+    position:absolute;
+    top:2px;
+    right:2px;
+    font-size:10px;
+}
+
+.dia-evento{
+    position:relative;
+    border:2px solid #ff4da6 !important;
+    font-weight:bold;
+}
+
+.dia-evento::after{
+    content:"🏳️‍🌈";
+    position:absolute;
+    top:2px;
+    right:2px;
+    font-size:10px;
+}
 </style>
 </head>
 
@@ -744,6 +773,24 @@ document.querySelector(".imagem-box img").src =
 reg.imagem;
 }
 
+/* ADICIONE ANTES DA FUNÇÃO gerarCalendario() */
+
+const datasRegencia = [
+{mes:1,dia:20},
+{mes:2,dia:19},
+{mes:3,dia:21},
+{mes:4,dia:21},
+{mes:5,dia:22},
+{mes:6,dia:21},
+{mes:7,dia:23},
+{mes:8,dia:22},
+{mes:9,dia:23},
+{mes:10,dia:24},
+{mes:11,dia:21},
+{mes:12,dia:22}
+];
+
+
 function gerarCalendario(){
 
 const calendar =
@@ -795,26 +842,57 @@ html += "</tr><tr>";
 
 }
 
-let estilo = "";
+let classe = "";
 
-if(dia===hoje.getDate()){
+const ehRegencia = datasRegencia.some(
+r => r.mes === (mes + 1) && r.dia === dia
+);
 
-estilo = `
-background:#d4af37;
-color:black;
-font-weight:bold;
-border-radius:50%;
-`;
+const ehOrgulho =
+(mes + 1) === 6 && dia === 28;
 
+if(ehRegencia){
+    classe += " dia-regencia";
+}
+
+if(ehOrgulho){
+    classe += " dia-evento";
 }
 
 html += `
-<td style="
+<td
+class="${classe}"
+style="
 padding:12px;
 ${estilo}
-">
+"
+title="${
+ehRegencia
+? 'Início de nova Regência'
+: ehOrgulho
+? 'Dia do Orgulho LGBTQIA+'
+: ''
+}">
 ${dia}
 </td>
+`;
+
+html += `
+<div style="
+margin-top:15px;
+padding:10px;
+border-top:1px solid #d4af37;
+font-size:.9rem;
+text-align:left;
+">
+
+<div>👑 Início de Regência</div>
+
+<div style="margin-top:5px;">
+🏳️‍🌈 Dia do Orgulho LGBTQIA+ (28 de Junho)
+</div>
+
+</div>
 `;
 
 }
@@ -824,7 +902,22 @@ html += `
 </table>
 `;
 
-calendar.innerHTML = html;
+calendar.innerHTML = html + `
+<div style="
+margin-top:15px;
+padding-top:10px;
+border-top:1px solid #ccc;
+font-size:.9rem;
+">
+
+<div>👑 Início de Regência</div>
+
+<div style="margin-top:5px;">
+🏳️‍🌈 Dia do Orgulho LGBTQIA+
+</div>
+
+</div>
+`;
 
 const meses = [
 "Janeiro","Fevereiro","Março",
@@ -914,6 +1007,8 @@ document
     reg.imagem;
 
 });
+
+
 </script>
 </body>
 </html>
