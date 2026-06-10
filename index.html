@@ -517,8 +517,24 @@ button:active{
             📅 Ver Regência de Outra Data
         </button>
 
+        
     </div>
+    <div id="seletorData" style="display:none; margin-top:20px; text-align:center;">
 
+    <input
+    type="date"
+    id="dataEscolhida"
+    style="
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    ">
+
+    <button id="consultarData">
+        Consultar
+    </button>
+
+    </div>
     <div class="resultado">
 
         <div class="imagem-box">
@@ -841,6 +857,73 @@ analisarAtual
 gerarCalendario();
 analisarAtual();
 
+
+const btnData =
+document.getElementById("btnData");
+
+const seletor =
+document.getElementById("seletorData");
+
+btnData.addEventListener("click",()=>{
+
+    if(seletor.style.display==="none"){
+
+        seletor.style.display="block";
+
+    }else{
+
+        seletor.style.display="none";
+
+    }
+
+});
+
+document
+.getElementById("consultarData")
+.addEventListener("click",()=>{
+
+    const valor =
+    document.getElementById("dataEscolhida").value;
+
+    if(!valor){
+
+        alert("Escolha uma data.");
+        return;
+    }
+
+    const data =
+    new Date(valor+"T00:00:00");
+
+    const reg =
+    obterRegencia(data);
+
+    document.querySelector(".dados h2")
+    .textContent =
+    reg.signo.toUpperCase();
+
+    document.querySelector(".info:nth-child(2)")
+    .innerHTML =
+    "<strong>Elemento:</strong> " +
+    reg.elemento;
+
+    document.querySelector(".info:nth-child(3)")
+    .innerHTML =
+    "<strong>Qualidade:</strong> " +
+    reg.qualidade;
+
+    document.querySelector(".trono")
+    .innerHTML =
+    "👑 " + reg.trono;
+
+    document.querySelector(".descricao")
+    .textContent =
+    reg.descricao;
+
+    document.querySelector(".imagem-box img")
+    .src =
+    reg.imagem;
+
+});
 </script>
 </body>
 </html>
