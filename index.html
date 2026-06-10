@@ -363,32 +363,21 @@ button:active{
 
 /* TABELA CALENDÁRIO */
 
+#calendar{
+    overflow-x:auto;
+}
+
 #calendar table{
-
     width:100%;
-
+    table-layout:fixed;
     border-collapse:collapse;
-
 }
 
-#calendar th{
-
-    padding:15px;
-
-    background:#d4af37;
-
-    color:black;
-
-}
-
+#calendar th,
 #calendar td{
-
-    padding:15px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
+    width:14.28%;
+    padding:8px 2px;
+    text-align:center;
 }
 
 #calendar td:hover{
@@ -419,6 +408,28 @@ button:active{
 
 }
 
+@media(max-width:600px){
+
+    #calendar{
+        padding:10px;
+    }
+
+    #calendar th{
+        font-size:.75rem;
+        padding:8px 0;
+    }
+
+    #calendar td{
+        font-size:.85rem;
+        padding:10px 0;
+    }
+
+    .container{
+        width:100%;
+        padding:15px;
+    }
+
+}
 /* RESPONSIVO */
 
 @media(max-width:900px){
